@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "227909909647",
+    "firebase_url": "https://evyree-d924b-default-rtdb.firebaseio.com",
+    "project_id": "evyree-d924b",
+    "storage_bucket": "evyree-d924b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227909909647:android:86de7c701f48bbb9be04fa",
+        "android_client_info": {
+          "package_name": "com.example.circles_yes_no"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "227909909647-8glpvjasm4feqebiijp4gik1e1j7hi57.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBng9-mdmVC9iE3ceHYH-JdWMkQkCUrzVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "227909909647-8glpvjasm4feqebiijp4gik1e1j7hi57.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
