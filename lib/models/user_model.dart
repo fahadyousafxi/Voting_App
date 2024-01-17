@@ -22,7 +22,7 @@ class User {
       id: snapshot.id,
       docId: data['id'],
       name: data['name'],
-      vote: data['vote'],
+      vote: double.parse(data['vote'].toString()),
       // Add more fields as needed
     );
   }
