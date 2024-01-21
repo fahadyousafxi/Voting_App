@@ -9,6 +9,8 @@ class UserController extends GetxController {
   RxDouble totalNoVotes = 0.0.obs;
   RxBool votingIn = false.obs;
   RxDouble sliderPercentage = 50.0.obs;
+  RxDouble yesVotesPercentage = 0.0.obs;
+  RxDouble noVotesPercentage = 0.0.obs;
 
   final fireStoreCollection = FirebaseFirestore.instance.collection('voting');
   @override
@@ -37,6 +39,13 @@ class UserController extends GetxController {
     for (var votes in users) {
       totalYesVotes.value += votes.vote;
       totalNoVotes.value += (votes.vote == 0.0) ? 1 : 0;
+    }
+    if (users.isNotEmpty) {
+      yesVotesPercentage.value = (totalYesVotes.value / users.length) * 100;
+      noVotesPercentage.value = (totalNoVotes.value / users.length) * 100;
+    } else {
+      yesVotesPercentage.value = 0;
+      noVotesPercentage.value = 0;
     }
     outOrIn();
   }

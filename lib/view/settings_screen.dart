@@ -21,7 +21,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onPressed: () {
                 widget.userController.deleteFireStoreCollection();
               },
-              child: const Text('Reset'))
+              child: const Text('Voting End'))
         ],
       ),
       body: Padding(

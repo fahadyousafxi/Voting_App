@@ -21,7 +21,7 @@ class User {
     return User(
       id: snapshot.id,
       docId: data['id'],
-      name: data['name'],
+      name: data['nickname'],
       vote: double.parse(data['vote'].toString()),
       // Add more fields as needed
     );
@@ -31,7 +31,7 @@ class User {
   Map<String, dynamic> toMap() {
     return {
       'id': docId,
-      'name': name,
+      'nickname': name,
       'vote': vote,
       // Add more fields as needed
     };

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:circles_yes_no/config/colors.dart';
 import 'package:circles_yes_no/view/settings_screen.dart';
 import 'package:flutter/material.dart';
@@ -23,10 +21,6 @@ class _VoteScreenState extends State<VoteScreen> {
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.background,
-        title: const Text(
-          'Voting',
-          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-        ),
         actions: [
           IconButton(
               onPressed: () {
@@ -47,7 +41,11 @@ class _VoteScreenState extends State<VoteScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  _userController.votingIn.value ? 'IN' : 'OUT',
+                  _userController.users.isEmpty
+                      ? 'No Vote Yet'
+                      : _userController.votingIn.value
+                          ? 'IN'
+                          : 'OUT',
                   style: TextStyle(
                       color: _userController.votingIn.value
                           ? AppColors.green
@@ -58,10 +56,10 @@ class _VoteScreenState extends State<VoteScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _buildVoteCircle(
+                    _buildVoteCircle(_userController.noVotesPercentage.value,
                         _userController.totalNoVotes.value, AppColors.red,
                         noVote: false),
-                    _buildVoteCircle(
+                    _buildVoteCircle(_userController.yesVotesPercentage.value,
                         _userController.totalYesVotes.value, AppColors.green,
                         noVote: true),
                   ],
@@ -76,9 +74,9 @@ class _VoteScreenState extends State<VoteScreen> {
 
   double getSize(Size size) {
     if (size.height > size.width) {
-      return size.width / 2.5;
+      return size.width - 140;
     } else {
-      return size.height / 2.5;
+      return size.height - 140;
     }
   }
 
@@ -100,13 +98,15 @@ class _VoteScreenState extends State<VoteScreen> {
     }
   }
 
-  Widget _buildVoteCircle(double voteCount, Color color,
+  Widget _buildVoteCircle(double percentage, double voteCount, Color color,
       {required bool noVote}) {
-    double maxCircleSize = getSize(Get.size);
-    double circleSize = voteCount > 0
-        ? min((voteCount.toDouble() * 2) + 20, maxCircleSize) +
-            biggerCircle(noVote)
-        : 0;
+    double maxCircleSize = getSize(MediaQuery.sizeOf(context));
+    // double circleSize = voteCount > 0
+    //     ? min((voteCount.toDouble() * 2) + 20, maxCircleSize) +
+    //         biggerCircle(noVote)
+    //     : 0;
+    double circleSize =
+        percentage == 0 ? 0 : maxCircleSize * (percentage / 100);
     return AnimatedContainer(
       width: circleSize,
       height: circleSize,
@@ -116,11 +116,15 @@ class _VoteScreenState extends State<VoteScreen> {
       ),
       duration: const Duration(milliseconds: 300),
       child: Center(
-        child: Text(
-          '$voteCount',
-          style:
-              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
+        child: percentage == 0
+            ? SizedBox()
+            : Text(
+                '$voteCount',
+                style: TextStyle(
+                    color: noVote ? AppColors.red : AppColors.green,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 40.0 + (percentage / 10)),
+              ),
       ),
     );
   }
