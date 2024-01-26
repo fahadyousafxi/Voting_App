@@ -19,21 +19,29 @@ class _VoteScreenState extends State<VoteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: AppColors.background,
-        actions: [
-          IconButton(
-              onPressed: () {
-                Get.to(() => SettingsScreen(
-                      userController: _userController,
-                    ));
-              },
-              icon: const Icon(Icons.settings)),
-          const SizedBox(
-            width: 30,
-          )
-        ],
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: AppColors.background,
+      //   actions: [
+      //     IconButton(
+      //         onPressed: () {
+      //           Get.to(() => SettingsScreen(
+      //                 userController: _userController,
+      //               ));
+      //         },
+      //         icon: const Icon(Icons.settings)),
+      //     const SizedBox(
+      //       width: 30,
+      //     )
+      //   ],
+      // ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      floatingActionButton: IconButton(
+          onPressed: () {
+            Get.to(() => SettingsScreen(
+                  userController: _userController,
+                ));
+          },
+          icon: const Icon(Icons.settings)),
       body: Center(
         child: SingleChildScrollView(
           child: Obx(
@@ -47,23 +55,32 @@ class _VoteScreenState extends State<VoteScreen> {
                           ? 'IN'
                           : 'OUT',
                   style: TextStyle(
+                      fontFamily: 'Kamerik',
                       color: _userController.votingIn.value
                           ? AppColors.green
                           : AppColors.red,
-                      fontSize: 30,
+                      fontSize: 110,
                       fontWeight: FontWeight.bold),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    const Spacer(),
                     _buildVoteCircle(_userController.noVotesPercentage.value,
                         _userController.totalNoVotes.value, AppColors.red,
                         noVote: false),
+                    const Spacer(),
+                    const Spacer(),
+                    const Spacer(),
                     _buildVoteCircle(_userController.yesVotesPercentage.value,
                         _userController.totalYesVotes.value, AppColors.green,
                         noVote: true),
+                    const Spacer(),
                   ],
                 ),
+                const SizedBox(
+                  height: 1,
+                )
               ],
             ),
           ),
@@ -74,9 +91,9 @@ class _VoteScreenState extends State<VoteScreen> {
 
   double getSize(Size size) {
     if (size.height > size.width) {
-      return size.width - 140;
+      return size.width - 200;
     } else {
-      return size.height - 140;
+      return size.height - 200;
     }
   }
 
@@ -119,11 +136,12 @@ class _VoteScreenState extends State<VoteScreen> {
         child: percentage == 0
             ? SizedBox()
             : Text(
-                '$voteCount',
+                '${voteCount}',
                 style: TextStyle(
+                    fontFamily: 'Kamerik',
                     color: noVote ? AppColors.red : AppColors.green,
                     fontWeight: FontWeight.bold,
-                    fontSize: 40.0 + (percentage / 10)),
+                    fontSize: (circleSize / 2)),
               ),
       ),
     );
