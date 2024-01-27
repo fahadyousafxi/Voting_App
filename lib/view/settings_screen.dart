@@ -2,6 +2,8 @@ import 'package:circles_yes_no/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controllers/pass_rate_controller.dart';
+
 class SettingsScreen extends StatefulWidget {
   final UserController userController;
   const SettingsScreen({super.key, required this.userController});
@@ -11,6 +13,8 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  final PassRateController _passRateController = Get.put(PassRateController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,16 +34,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
           () => Column(
             children: [
               Text('Total Voters: ${widget.userController.users.length}'),
-              Slider(
-                  value:
-                      widget.userController.sliderPercentage.value.toDouble(),
-                  min: 0.0,
-                  max: 100.0,
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              SizedBox(
+                //       width: 200,
+                child: CheckboxListTile(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 22),
+                  title: const Text('Pass Count'),
+                  subtitle: widget.userController.showPassRate.value
+                      ? Text(widget.userController.passRate.value.toString())
+                      : null,
+                  value: widget.userController.showPassRate.value,
                   onChanged: (val) {
-                    widget.userController.sliderPercentage.value =
-                        double.parse(val.toStringAsFixed(1));
-                    widget.userController.outOrIn();
-                  }),
+                    widget.userController.showPassRate.value = val ?? true;
+                  },
+                ),
+              ),
+              //   ],
+              // ),
+              Slider(
+                value: widget.userController.sliderPercentage.value.toDouble(),
+                min: 0.0,
+                max: 100.0,
+                onChanged: (val) {
+                  widget.userController.sliderPercentage.value =
+                      double.parse(val.toStringAsFixed(0));
+                  widget.userController.outOrIn();
+                },
+                onChangeEnd: (val) {
+                  _passRateController.updatePercentageValue(
+                      double.parse(val.toStringAsFixed(0)));
+                },
+              ),
               Text("${widget.userController.sliderPercentage.value}%"),
               SizedBox(
                 child: ListView.builder(
@@ -50,7 +77,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         '${widget.userController.users[index].name}: ${widget.userController.users[index].vote}');
                   },
                 ),
-              )
+              ),
             ],
           ),
         ),

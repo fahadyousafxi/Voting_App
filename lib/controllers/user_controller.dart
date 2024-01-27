@@ -8,9 +8,12 @@ class UserController extends GetxController {
   RxDouble totalYesVotes = 0.0.obs;
   RxDouble totalNoVotes = 0.0.obs;
   RxBool votingIn = false.obs;
-  RxDouble sliderPercentage = 50.0.obs;
   RxDouble yesVotesPercentage = 0.0.obs;
   RxDouble noVotesPercentage = 0.0.obs;
+
+  RxDouble sliderPercentage = 50.0.obs;
+  RxDouble passRate = 0.0.obs;
+  RxBool showPassRate = false.obs;
 
   final fireStoreCollection = FirebaseFirestore.instance.collection('voting');
   @override
@@ -60,6 +63,20 @@ class UserController extends GetxController {
       } else {
         votingIn.value = false;
       }
+      passRate.value = customRound(sliderPercentage.value / 100 * total);
+    } else {
+      passRate.value = 0;
+    }
+  }
+
+  double customRound(double value) {
+    double decimalPart = value - value.floor();
+    if (decimalPart >= 0.01 && decimalPart <= 0.49) {
+      return value.floor() + 0.5;
+    } else if (decimalPart >= 0.51 && decimalPart <= 0.99) {
+      return value.floor() + 1.0;
+    } else {
+      return value;
     }
   }
 }
