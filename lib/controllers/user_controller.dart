@@ -13,7 +13,7 @@ class UserController extends GetxController {
 
   RxDouble sliderPercentage = 50.0.obs;
   RxDouble passRate = 0.0.obs;
-  RxBool showPassRate = false.obs;
+  RxBool showPassRate = true.obs;
 
   final fireStoreCollection = FirebaseFirestore.instance.collection('voting');
   @override

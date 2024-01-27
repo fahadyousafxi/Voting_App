@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:circles_yes_no/config/colors.dart';
 import 'package:circles_yes_no/controllers/pass_rate_controller.dart';
 import 'package:circles_yes_no/view/settings_screen.dart';
@@ -28,21 +26,6 @@ class _VoteScreenState extends State<VoteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      // appBar: AppBar(
-      //   backgroundColor: AppColors.background,
-      //   actions: [
-      //     IconButton(
-      //         onPressed: () {
-      //           Get.to(() => SettingsScreen(
-      //                 userController: _userController,
-      //               ));
-      //         },
-      //         icon: const Icon(Icons.settings)),
-      //     const SizedBox(
-      //       width: 30,
-      //     )
-      //   ],
-      // ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       floatingActionButton: IconButton(
           onPressed: () {
@@ -56,48 +39,60 @@ class _VoteScreenState extends State<VoteScreen> {
           () => Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
+              Stack(
                 children: [
-                  const SizedBox(width: 44),
-                  SizedBox(
-                    height: 40 + (Get.height / 10),
-                    child: Text(
-                      _userController.users.isEmpty
-                          ? ''
-                          : _userController.votingIn.value
-                              ? 'IN'
-                              : 'OUT',
-                      textAlign: TextAlign.end,
-                      style: TextStyle(
-                          fontFamily: 'Kamerik',
-                          color: _userController.votingIn.value
-                              ? AppColors.green
-                              : AppColors.red,
-                          fontSize: 30 + (Get.height / 10),
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 38.0),
-                    child: Center(
-                      child: Text(
-                        _userController.users.isEmpty
-                            ? ''
-                            : _userController.showPassRate.value
-                                ? _userController.passRate.value.toString()
-                                : '',
-                        textAlign: TextAlign.end,
-                        style: TextStyle(
-                            fontFamily: 'Kamerik',
-                            color: _userController.votingIn.value
-                                ? AppColors.green
-                                : AppColors.red,
-                            fontSize: 10 + (Get.height / 15),
-                            fontWeight: FontWeight.bold),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 40 + (Get.height / 10),
+                        child: Text(
+                          _userController.users.isEmpty
+                              ? ''
+                              : _userController.votingIn.value
+                                  ? 'IN '
+                                  : 'OUT',
+                          textAlign: TextAlign.end,
+                          style: TextStyle(
+                              fontFamily: 'Kamerik',
+                              color: _userController.votingIn.value
+                                  ? AppColors.green
+                                  : AppColors.red,
+                              fontSize: 30 + (Get.height / 10),
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20.0),
+                        child: SizedBox(
+                          width: 100 + (Get.width / 8),
+                          height: 60 + (Get.height / 10),
+                          child: Center(
+                            child: Text(
+                              _userController.users.isEmpty
+                                  ? ''
+                                  : _userController.showPassRate.value
+                                      ? _userController.passRate.value
+                                          .toString()
+                                      : '',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  fontFamily: 'Kamerik',
+                                  color: _userController.votingIn.value
+                                      ? AppColors.green
+                                      : AppColors.red,
+                                  fontSize: 20 + (Get.height / 15),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -140,11 +135,6 @@ class _VoteScreenState extends State<VoteScreen> {
                         )
                       ],
                     ),
-              ElevatedButton(
-                  onPressed: () {
-                    log(_userController.customRound(0.53).toString());
-                  },
-                  child: const Text('Test'))
             ],
           ),
         ),
@@ -181,10 +171,6 @@ class _VoteScreenState extends State<VoteScreen> {
   Widget _buildVoteCircle(double percentage, double voteCount, Color color,
       {required bool noVote}) {
     double maxCircleSize = getSize(MediaQuery.sizeOf(context));
-    // double circleSize = voteCount > 0
-    //     ? min((voteCount.toDouble() * 2) + 20, maxCircleSize) +
-    //         biggerCircle(noVote)
-    //     : 0;
     double circleSize =
         percentage == 0 ? 0 : maxCircleSize * (percentage / 100);
     return AnimatedContainer(

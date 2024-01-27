@@ -19,7 +19,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // title: Obx(() => Text(_userController.users.length.toString())),
         actions: [
           ElevatedButton(
               onPressed: () {
@@ -33,17 +32,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: Obx(
           () => Column(
             children: [
-              Text('Total Voters: ${widget.userController.users.length}'),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
+              Text(
+                'Total Voters: ${widget.userController.users.length}',
+                style:
+                    const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+              ),
               SizedBox(
-                //       width: 200,
                 child: CheckboxListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 22),
-                  title: const Text('Pass Count'),
+                  title: const Text(
+                    'Pass Count',
+                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                  ),
                   subtitle: widget.userController.showPassRate.value
-                      ? Text(widget.userController.passRate.value.toString())
+                      ? Text(
+                          widget.userController.passRate.value.toString(),
+                          style: const TextStyle(fontSize: 40),
+                        )
                       : null,
                   value: widget.userController.showPassRate.value,
                   onChanged: (val) {
@@ -51,8 +56,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   },
                 ),
               ),
-              //   ],
-              // ),
               Slider(
                 value: widget.userController.sliderPercentage.value.toDouble(),
                 min: 0.0,
@@ -67,14 +70,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       double.parse(val.toStringAsFixed(0)));
                 },
               ),
-              Text("${widget.userController.sliderPercentage.value}%"),
+              Text(
+                "${widget.userController.sliderPercentage.value}%",
+                style:
+                    const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+              ),
               SizedBox(
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: widget.userController.users.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Text(
-                        '${widget.userController.users[index].name}: ${widget.userController.users[index].vote}');
+                      '${widget.userController.users[index].name}: ${widget.userController.users[index].vote}',
+                      style: const TextStyle(
+                          fontSize: 40, fontWeight: FontWeight.bold),
+                    );
                   },
                 ),
               ),
