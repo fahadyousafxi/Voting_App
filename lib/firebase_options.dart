@@ -47,15 +47,14 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAm0KQzfkUdnR0gRYibL4OBRPGu9eS7ewk',
-    appId: '1:227909909647:web:07c269367483ed6dbe04fa',
-    messagingSenderId: '227909909647',
-    projectId: 'evyree-d924b',
-    authDomain: 'evyree-d924b.firebaseapp.com',
-    databaseURL: 'https://evyree-d924b-default-rtdb.firebaseio.com',
-    storageBucket: 'evyree-d924b.appspot.com',
-    measurementId: 'G-XQBD7KD4KT',
-  );
+      apiKey: 'AIzaSyC8QrltpzSmdto-QwlUexrA8Tt7O1cw7Wo',
+      appId: '1:180329150497:web:4b6eea534bdc408c258b60',
+      messagingSenderId: "180329150497",
+      projectId: 'voting-mvp',
+      authDomain: "voting-mvp.firebaseapp.com",
+      databaseURL: 'https://voting-mvp-default-rtdb.firebaseio.com',
+      storageBucket: "voting-mvp.appspot.com",
+      measurementId: "G-QYY27DVM15");
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBng9-mdmVC9iE3ceHYH-JdWMkQkCUrzVk',

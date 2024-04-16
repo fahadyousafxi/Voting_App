@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "evyree-d924b"
-  }
+    "default": "voting-mvp",
+    "a": "voting-mvp"
+  },
+  "targets": {},
+  "etags": {}
 }
